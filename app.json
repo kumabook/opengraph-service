@@ -1,0 +1,10 @@
+{
+  "name": "opengrapher",
+  "description": "A microservice that handles opengraph",
+  "repository": "https://github.com/kumabook/opengrapher.git",
+  "keywords": ["opengraph"],
+  "website": "https://github.com/kumabook/opengrapher",
+  "buildpacks": [
+    { "url": "https://github.com/emk/heroku-buildpack-rust" }
+  ]
+}
