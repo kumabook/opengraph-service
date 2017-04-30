@@ -14,6 +14,9 @@ mod error;
 use std::io::Read;
 use std::str::FromStr;
 
+use std::env;
+use std::net::SocketAddrV4;
+use std::net::Ipv4Addr;
 use iron::prelude::*;
 use iron::mime::Mime;
 use iron::status;
@@ -31,7 +34,21 @@ use error::Error;
 fn main() {
     let mut router = Router::new();
     router.get("/opengraph", opengraph, "opengraph");
-    Iron::new(router).http("localhost:3000").unwrap();
+
+    let port_str = match env::var("PORT") {
+        Ok(n)  => n,
+        Err(_) => "8080".to_string()
+    };
+    let port: u16 = match port_str.trim().parse() {
+        Ok(n) => n,
+        Err(_) => {
+            println!("Faild to parse port");
+            return;
+        }
+    };
+    println!("PORT {}", port_str);
+    let ip = Ipv4Addr::new(0, 0, 0, 0);
+    Iron::new(router).http(SocketAddrV4::new(ip, port)).unwrap();
 }
 
 fn application_json() -> Mime {
