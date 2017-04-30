@@ -1,0 +1,20 @@
+[package]
+name = "opengrapher"
+version = "0.1.0"
+authors = ["Hiroki Kumamoto <kumabook@live.jp>"]
+description = "Parses html and extracts Open Graph protocol markup"
+readme = "README.md"
+license = "MIT"
+homepage = "https://github.com/kumabook/opengraph"
+repository = "https://github.com/kumabook/opengraph.git"
+
+[dependencies]
+opengraph        = "^0"
+hyper            = "^0"
+hyper-native-tls = "*"
+iron             = "^0"
+router           = "^0"
+urlencoded       = "^0"
+serde            = "^1"
+serde_json       = "^1"
+serde_derive     = "^1"
