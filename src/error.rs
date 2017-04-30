@@ -5,7 +5,6 @@ use iron::prelude::*;
 use iron::IronError;
 use iron::status::Status;
 use iron::mime::Mime;
-use hyper;
 use urlencoded;
 use serde_json;
 
@@ -58,12 +57,6 @@ impl From<Error> for IronError {
 
 impl From<urlencoded::UrlDecodingError> for Error {
     fn from(_: urlencoded::UrlDecodingError) -> Error {
-        Error::BadRequest
-    }
-}
-
-impl From<hyper::Error> for Error {
-    fn from(_: hyper::Error) -> Error {
         Error::BadRequest
     }
 }
