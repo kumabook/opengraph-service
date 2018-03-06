@@ -1,6 +1,6 @@
 [package]
 name = "opengrapher"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Hiroki Kumamoto <kumabook@live.jp>"]
 description = "Parses html and extracts Open Graph protocol markup"
 readme = "README.md"
