@@ -7,6 +7,7 @@ use iron::status::Status;
 use iron::mime::Mime;
 use urlencoded;
 use serde_json;
+use opengraph;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub enum Error {
@@ -58,6 +59,18 @@ impl From<Error> for IronError {
 impl From<urlencoded::UrlDecodingError> for Error {
     fn from(_: urlencoded::UrlDecodingError) -> Error {
         Error::BadRequest
+    }
+}
+
+impl From<serde_json::Error> for Error {
+    fn from(_: serde_json::Error) -> Error {
+        Error::Unexpected
+    }
+}
+
+impl From<opengraph::error::Error> for Error {
+    fn from(_: opengraph::error::Error) -> Error {
+        Error::Unexpected
     }
 }
 

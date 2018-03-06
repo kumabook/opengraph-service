@@ -51,13 +51,14 @@ fn opengraph(req: &mut Request) -> IronResult<Response> {
     fn opengraph2(req: &mut Request) -> Result<Response, Error> {
         let ref params = try!(req.get_ref::<UrlEncodedQuery>());
         let url        = try!(params.get("url").ok_or(Error::BadRequest));
-        if let Some(object) = scrape(&url[0]) {
-            let json_str = serde_json::to_string(&object).unwrap();
-            println!("handle {}", url[0]);
-            return Ok(Response::with((status::Ok, application_json(), json_str)));
-        }
-        println!("unhandle {}", url[0]);
-        Ok(Response::with((status::Ok, application_json(), "{}")))
+        let object = scrape(&url[0], opengraph::Opts {
+            include_images: true,
+            include_videos: false,
+            include_audios: false,
+        })?;
+        let json_str = serde_json::to_string(&object)?;
+        println!("handle {}", url[0]);
+        Ok(Response::with((status::Ok, application_json(), json_str)))
     }
     opengraph2(req).map_err(|err| IronError::from(err))
 }
